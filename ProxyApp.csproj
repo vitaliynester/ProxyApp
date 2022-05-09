@@ -112,6 +112,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MobileController.cs" />
     <Compile Include="DTOs\CodeConfirmationRequest.cs" />
     <Compile Include="DTOs\CodeConfirmationRequestResponse.cs" />
     <Compile Include="DTOs\ErrorResponse.cs" />
