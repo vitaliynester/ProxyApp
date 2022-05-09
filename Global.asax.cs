@@ -7,6 +7,8 @@ using System.Web.Routing;
 using System.Web.Security;
 using System.Web.SessionState;
 using System.Web.Http;
+using ProxyApp.Data;
+using System.Data.Entity;
 
 namespace ProxyApp
 {
@@ -17,6 +19,7 @@ namespace ProxyApp
             // Код, выполняемый при запуске приложения
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
+            Database.SetInitializer<UserProfileContext>(null);
             RouteConfig.RegisterRoutes(RouteTable.Routes);            
         }
     }
