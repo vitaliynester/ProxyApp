@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Http;
+﻿using System.Web.Http;
 
 namespace ProxyApp
 {
@@ -9,10 +6,9 @@ namespace ProxyApp
     {
         public static void Register(HttpConfiguration config)
         {
-            // Конфигурация и службы Web API
-
-            // Маршруты Web API
             config.MapHttpAttributeRoutes();
+
+            config.EnableCors();
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
