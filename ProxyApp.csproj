@@ -114,6 +114,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MobileController.cs" />
     <Compile Include="Controllers\RegistrationController.cs" />
+    <Compile Include="Controllers\RootController.cs" />
     <Compile Include="DTOs\CodeConfirmationRequest.cs" />
     <Compile Include="DTOs\CodeConfirmationRequestResponse.cs" />
     <Compile Include="DTOs\ErrorResponse.cs" />
