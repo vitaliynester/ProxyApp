@@ -145,6 +145,7 @@
     <Compile Include="Services\HttpService.cs" />
     <Compile Include="Services\JsonHttpStatusResult.cs" />
     <Compile Include="Services\SerializerService.cs" />
+    <Compile Include="Services\UserProfileService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
