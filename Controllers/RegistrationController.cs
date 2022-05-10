@@ -31,7 +31,7 @@ namespace ProxyApp.Controllers
                     var userProfile =
                         await UserProfileService.FindByPhoneAndMedOrgId(responseModel.Patient.Phone,
                             responseModel.BranchId);
-                    userProfile.Surname = responseModel.Patient.Surname[1].ToString();
+                    userProfile.Surname = responseModel.Patient.Surname[0].ToString();
                     userProfile.FirstName = responseModel.Patient.Name;
                     userProfile.Patronymic = responseModel.Patient.Patronymic;
                     userProfile.GUID = responseModel.ActionGUID;
@@ -76,7 +76,7 @@ namespace ProxyApp.Controllers
                     if (responseModel.Success && responseModel.Processed)
                     {
                         var userProfile = await UserProfileService.FindByActionGuid(GUID);
-                        userProfile.Surname = responseModel.Patient.Surname[1].ToString();
+                        userProfile.Surname = responseModel.Patient.Surname[0].ToString();
                         userProfile.FirstName = responseModel.Patient.Name;
                         userProfile.Patronymic = responseModel.Patient.Patronymic;
                         await UserProfileService.Update(userProfile);
