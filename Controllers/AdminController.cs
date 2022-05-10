@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Web.Http;
 using System.Web.Http.Description;
 using ProxyApp.Data;
 using ProxyApp.Models;
@@ -19,36 +15,54 @@ namespace ProxyApp.Controllers
         private UserProfileContext db = new UserProfileContext();
 
         // GET: api/Admin
-        public IQueryable<UserProfile> GetUserProfiles()
+        public HttpResponseMessage GetUserProfiles()
         {
-            return db.UserProfiles;
+            if (!IsAuthorized())
+            {
+                return Request.CreateResponse(HttpStatusCode.Unauthorized);
+            }
+            var userProfiles = db.UserProfiles;
+            var response = Request.CreateResponse(HttpStatusCode.OK, userProfiles);
+            response.Headers.Add("Access-Control-Expose-Headers", "X-Total-Count");
+            response.Headers.Add("X-Total-Count", userProfiles.Count().ToString());
+            return response;
         }
 
         // GET: api/Admin/5
         [ResponseType(typeof(UserProfile))]
-        public async Task<IHttpActionResult> GetUserProfile(int id)
+        public async Task<HttpResponseMessage> GetUserProfile(int id)
         {
+            if (!IsAuthorized())
+            {
+                return Request.CreateResponse(HttpStatusCode.Unauthorized);
+            }
             UserProfile userProfile = await db.UserProfiles.FindAsync(id);
             if (userProfile == null)
             {
-                return NotFound();
+                return Request.CreateResponse(HttpStatusCode.NotFound);
             }
 
-            return Ok(userProfile);
+            return Request.CreateResponse(HttpStatusCode.OK, userProfile);
         }
 
         // PUT: api/Admin/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutUserProfile(int id, UserProfile userProfile)
+        public async Task<HttpResponseMessage> PutUserProfile(int id, UserProfile userProfile)
         {
+            if (!IsAuthorized())
+            {
+                return Request.CreateResponse(HttpStatusCode.Unauthorized);
+            }
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                var response = Request.CreateResponse(HttpStatusCode.BadRequest, ModelState);
+                return response;
             }
 
             if (id != userProfile.ID)
             {
-                return BadRequest();
+                var response = Request.CreateResponse(HttpStatusCode.BadRequest);
+                return response;
             }
 
             db.Entry(userProfile).State = EntityState.Modified;
@@ -61,7 +75,8 @@ namespace ProxyApp.Controllers
             {
                 if (!UserProfileExists(id))
                 {
-                    return NotFound();
+                    var response = Request.CreateResponse(HttpStatusCode.NotFound);
+                    return response;
                 }
                 else
                 {
@@ -69,38 +84,27 @@ namespace ProxyApp.Controllers
                 }
             }
 
-            return StatusCode(HttpStatusCode.NoContent);
-        }
-
-        // POST: api/Admin
-        [ResponseType(typeof(UserProfile))]
-        public async Task<IHttpActionResult> PostUserProfile(UserProfile userProfile)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            db.UserProfiles.Add(userProfile);
-            await db.SaveChangesAsync();
-
-            return CreatedAtRoute("DefaultApi", new { id = userProfile.ID }, userProfile);
+            return Request.CreateResponse(HttpStatusCode.OK, userProfile);
         }
 
         // DELETE: api/Admin/5
         [ResponseType(typeof(UserProfile))]
-        public async Task<IHttpActionResult> DeleteUserProfile(int id)
+        public async Task<HttpResponseMessage> DeleteUserProfile(int id)
         {
+            if (!IsAuthorized())
+            {
+                return Request.CreateResponse(HttpStatusCode.Unauthorized);
+            }
             UserProfile userProfile = await db.UserProfiles.FindAsync(id);
             if (userProfile == null)
             {
-                return NotFound();
+                return Request.CreateResponse(HttpStatusCode.NotFound);
             }
 
             db.UserProfiles.Remove(userProfile);
             await db.SaveChangesAsync();
 
-            return Ok(userProfile);
+            return Request.CreateResponse(HttpStatusCode.OK, userProfile);
         }
 
         protected override void Dispose(bool disposing)
@@ -115,6 +119,15 @@ namespace ProxyApp.Controllers
         private bool UserProfileExists(int id)
         {
             return db.UserProfiles.Count(e => e.ID == id) > 0;
+        }
+
+        private bool IsAuthorized()
+        {
+            var re = Request;
+            var headers = re.Headers;
+            var targetHeader = "5d194a71-f5e4-4618-9367-4a1dcd39c5e2";
+
+            return headers.Contains("Admin-Header") && headers.GetValues("Admin-Header").First() == targetHeader;
         }
     }
 }
