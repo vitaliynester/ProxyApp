@@ -13,7 +13,7 @@
                     {
                         user_profile_id = c.Int(nullable: false, identity: true),
                         user_profile_first_name = c.String(nullable: true, maxLength: 255),
-                        user_profile_surname = c.String(nullable: true, maxLength: 255),
+                        user_profile_surname = c.String(nullable: true, maxLength: 2),
                         user_profile_patronymic = c.String(nullable: true, maxLength: 255),
                         user_profile_phone = c.String(nullable: false, maxLength: 255),
                         user_profile_code = c.String(nullable: false, maxLength: 255),
