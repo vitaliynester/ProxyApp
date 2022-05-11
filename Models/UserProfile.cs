@@ -25,14 +25,13 @@ namespace ProxyApp.Models
         [Column("user_profile_phone")] 
         public string Phone { get; set; }
 
-        [JsonProperty("code")]
-        [Column("user_profile_code")] 
-        public string Code { get; set; }
+        [JsonProperty("barcode")]
+        [Column("user_profile_barcode")] 
+        public string Barcode { get; set; }
 
         [JsonProperty("guid")]
         [Column("user_profile_guid")] 
         public string GUID { get; set; }
-
 
         [JsonProperty("med_org_id")]
         [Column("user_profile_med_org_id")] 

@@ -30,18 +30,13 @@ namespace ProxyApp.Controllers
                 try
                 {
                     var userProfile = new UserProfile();
-                    userProfile.Phone = responseModel.Patient.Phone;
-                    userProfile.MedOrgId = responseModel.BranchId;
-                    userProfile.Surname = responseModel.Patient.Surname[0].ToString();
-                    userProfile.FirstName = responseModel.Patient.Name;
-                    userProfile.Patronymic = responseModel.Patient.Patronymic;
                     userProfile.GUID = responseModel.ActionGUID;
                     await UserProfileService.Add(userProfile);
                 }
                 catch (Exception)
                 {
                 }
-
+                
                 return new JsonHttpStatusResult<PatientAuthorizationRequestResponse>(responseModel, response.StatusCode,
                     this);
             }
@@ -77,6 +72,9 @@ namespace ProxyApp.Controllers
                     if (responseModel.Success && responseModel.Processed)
                     {
                         var userProfile = await UserProfileService.FindByActionGuid(GUID);
+                        userProfile.Barcode = responseModel.Clinic.Barcode;
+                        userProfile.MedOrgId = responseModel.Clinic.ClinicId;
+                        userProfile.Phone = responseModel.Patient.Phone;
                         userProfile.Surname = responseModel.Patient.Surname[0].ToString();
                         userProfile.FirstName = responseModel.Patient.Name;
                         userProfile.Patronymic = responseModel.Patient.Patronymic;

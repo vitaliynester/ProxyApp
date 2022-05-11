@@ -50,21 +50,7 @@ namespace ProxyApp.Controllers
             try
             {
                 var responseModel = CodeConfirmationRequestResponse.FromJson(response.Body);
-
-                try
-                {
-                    var userProfile = new UserProfile();
-                    userProfile.Code = responseModel.Code;
-                    userProfile.MedOrgId = responseModel.MedOrgId;
-                    userProfile.Phone = responseModel.Phone;
-                    await UserProfileService.Add(userProfile);
-                }
-                catch (Exception)
-                {
-                }
-
-                return new JsonHttpStatusResult<CodeConfirmationRequestResponse>(
-                    CodeConfirmationRequestResponse.FromJson(response.Body), response.StatusCode, this);
+                return new JsonHttpStatusResult<CodeConfirmationRequestResponse>(responseModel, response.StatusCode, this);
             }
             catch (Exception)
             {
