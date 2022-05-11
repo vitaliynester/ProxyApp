@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using ProxyApp.DTOs;
+using ProxyApp.Models;
 using ProxyApp.Services;
 
 namespace ProxyApp.Controllers
@@ -28,9 +29,9 @@ namespace ProxyApp.Controllers
 
                 try
                 {
-                    var userProfile =
-                        await UserProfileService.FindByPhoneAndMedOrgId(responseModel.Patient.Phone,
-                            responseModel.BranchId);
+                    var userProfile = new UserProfile();
+                    userProfile.Phone = responseModel.Patient.Phone;
+                    userProfile.MedOrgId = responseModel.BranchId;
                     userProfile.Surname = responseModel.Patient.Surname[0].ToString();
                     userProfile.FirstName = responseModel.Patient.Name;
                     userProfile.Patronymic = responseModel.Patient.Patronymic;
