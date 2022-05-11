@@ -19,7 +19,7 @@ namespace ProxyApp
             // Код, выполняемый при запуске приложения
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
-            Database.SetInitializer<UserProfileContext>(null);
+            // Database.SetInitializer<UserProfileContext>(null);
             RouteConfig.RegisterRoutes(RouteTable.Routes);            
         }
     }
