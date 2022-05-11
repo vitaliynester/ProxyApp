@@ -5,11 +5,11 @@
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<ProxyApp.Data.UserProfileContext>
+    public sealed class Configuration : DbMigrationsConfiguration<ProxyApp.Data.UserProfileContext>
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(ProxyApp.Data.UserProfileContext context)

@@ -33,17 +33,16 @@ namespace ProxyApp.Controllers
                     userProfile.GUID = responseModel.ActionGUID;
                     await UserProfileService.Add(userProfile);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    return new JsonHttpStatusResult<ErrorResponse>(ErrorResponse.FromJson(ex.Message), response.StatusCode, this);
                 }
                 
-                return new JsonHttpStatusResult<PatientAuthorizationRequestResponse>(responseModel, response.StatusCode,
-                    this);
+                return new JsonHttpStatusResult<PatientAuthorizationRequestResponse>(responseModel, response.StatusCode, this);
             }
             catch (Exception)
             {
-                return new JsonHttpStatusResult<ErrorResponse>(ErrorResponse.FromJson(response.Body),
-                    response.StatusCode, this);
+                return new JsonHttpStatusResult<ErrorResponse>(ErrorResponse.FromJson(response.Body), response.StatusCode, this);
             }
         }
 

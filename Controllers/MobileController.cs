@@ -49,13 +49,11 @@ namespace ProxyApp.Controllers
 
             try
             {
-                var responseModel = CodeConfirmationRequestResponse.FromJson(response.Body);
-                return new JsonHttpStatusResult<CodeConfirmationRequestResponse>(responseModel, response.StatusCode, this);
+                return new JsonHttpStatusResult<CodeConfirmationRequestResponse>(CodeConfirmationRequestResponse.FromJson(response.Body), response.StatusCode, this);
             }
             catch (Exception)
             {
-                return new JsonHttpStatusResult<ErrorResponse>(ErrorResponse.FromJson(response.Body),
-                    response.StatusCode, this);
+                return new JsonHttpStatusResult<ErrorResponse>(ErrorResponse.FromJson(response.Body), response.StatusCode, this);
             }
         }
     }

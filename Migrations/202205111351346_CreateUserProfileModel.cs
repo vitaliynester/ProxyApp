@@ -3,7 +3,7 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class CreaeUserProfileModel : DbMigration
+    public partial class CreateUserProfileModel : DbMigration
     {
         public override void Up()
         {
@@ -18,7 +18,7 @@
                         user_profile_phone = c.String(nullable: true, maxLength: 255),
                         user_profile_barcode = c.String(nullable: true, maxLength: 255),
                         user_profile_guid = c.String(nullable: false, maxLength: 255),
-                        user_profile_med_org_id = c.Int(nullable: true),
+                        user_profile_med_org_id = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.user_profile_id);
             
