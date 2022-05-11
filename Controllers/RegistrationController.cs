@@ -35,7 +35,7 @@ namespace ProxyApp.Controllers
                     userProfile.FirstName = responseModel.Patient.Name;
                     userProfile.Patronymic = responseModel.Patient.Patronymic;
                     userProfile.GUID = responseModel.ActionGUID;
-                    await UserProfileService.Update(userProfile);
+                    await UserProfileService.Add(userProfile);
                 }
                 catch (Exception)
                 {

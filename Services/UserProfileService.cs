@@ -36,7 +36,7 @@ namespace ProxyApp.Services
 
         public static async Task<UserProfile> FindByPhoneAndMedOrgId(string phoneNumber, int medOrgId)
         {
-            return await _db.UserProfiles.FirstOrDefaultAsync(up => up.Phone == phoneNumber && up.MedOrgId == medOrgId);
+            return await _db.UserProfiles.AsNoTracking().FirstOrDefaultAsync(up => up.Phone == phoneNumber && up.MedOrgId == medOrgId);
         }
     }
 }
