@@ -56,5 +56,49 @@ namespace ProxyApp.Controllers
                 return new JsonHttpStatusResult<ErrorResponse>(ErrorResponse.FromJson(response.Body), response.StatusCode, this);
             }
         }
+
+        [HttpPost]
+        [ResponseType(typeof(ForgorPasswordRequestResponse))]
+        [Route("ForgotPassword")]
+        public async Task<IHttpActionResult> ForgotPassword()
+        {
+            var requestString = GetBodyFromRequest();
+
+            var url = _baseUrl + "/api/Mobile/ForgotPassword";
+
+            var response = await HttpService.Post(url, requestString,
+                requestString.Contains("\"") ? ContentType.JSON : ContentType.FormData);
+
+            try
+            {
+                return new JsonHttpStatusResult<ForgorPasswordRequestResponse>(ForgorPasswordRequestResponse.FromJson(response.Body), response.StatusCode, this);
+            }
+            catch (Exception)
+            {
+                return new JsonHttpStatusResult<ErrorResponse>(ErrorResponse.FromJson(response.Body), response.StatusCode, this);
+            }
+        }
+
+        [HttpPost]
+        [ResponseType(typeof(ConfirmForgotPasswordRequestResponse))]
+        [Route("ConfirmForgotPassword")]
+        public async Task<IHttpActionResult> ConfirmForgotPassword()
+        {
+            var requestString = GetBodyFromRequest();
+
+            var url = _baseUrl + "/api/Mobile/ConfirmForgotPassword";
+
+            var response = await HttpService.Post(url, requestString,
+                requestString.Contains("\"") ? ContentType.JSON : ContentType.FormData);
+
+            try
+            {
+                return new JsonHttpStatusResult<ConfirmForgotPasswordRequestResponse>(ConfirmForgotPasswordRequestResponse.FromJson(response.Body), response.StatusCode, this);
+            }
+            catch (Exception)
+            {
+                return new JsonHttpStatusResult<ErrorResponse>(ErrorResponse.FromJson(response.Body), response.StatusCode, this);
+            }
+        }
     }
 }
