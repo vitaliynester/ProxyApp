@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ProxyApp.Models
@@ -36,5 +37,13 @@ namespace ProxyApp.Models
         [JsonProperty("med_org_id")]
         [Column("user_profile_med_org_id")] 
         public int MedOrgId { get; set; }
+
+        [JsonProperty("created_at")]
+        [Column("user_profile_created_at", TypeName = "datetime2")]
+        public DateTime CreatedAt { get; set; }
+
+        [JsonProperty("confirmed_at")]
+        [Column("user_profile_confirmed_at", TypeName = "datetime2")]
+        public DateTime ConfirmedAt { get; set; }
     }
 }
