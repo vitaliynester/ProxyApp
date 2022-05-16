@@ -30,6 +30,7 @@ namespace ProxyApp.Controllers
                 try
                 {
                     var userProfile = new UserProfile();
+                    userProfile.CreatedAt = DateTime.Now;
                     userProfile.GUID = responseModel.ActionGUID;
                     await UserProfileService.Add(userProfile);
                 }
@@ -71,6 +72,7 @@ namespace ProxyApp.Controllers
                     if (responseModel.Success && responseModel.Processed)
                     {
                         var userProfile = await UserProfileService.FindByActionGuid(GUID);
+                        userProfile.ConfirmedAt = DateTime.Now;
                         userProfile.Barcode = responseModel.Clinic.Barcode;
                         userProfile.MedOrgId = responseModel.Clinic.ClinicId;
                         userProfile.Phone = responseModel.Patient.Phone;
