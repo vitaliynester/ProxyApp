@@ -13,7 +13,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ProxyApp</RootNamespace>
     <AssemblyName>ProxyApp</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort />
@@ -23,6 +23,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -59,6 +60,7 @@
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.8.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.AspNet.WebApi.Client.5.2.8\lib\net45\System.Net.Http.Formatting.dll</HintPath>
@@ -72,8 +74,6 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.AspNet.WebPages.3.2.8\lib\net45\System.Web.Helpers.dll</HintPath>
@@ -102,13 +102,13 @@
     <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.AspNet.WebPages.3.2.8\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Site.css" />
@@ -127,7 +127,11 @@
     <Compile Include="Data\UserProfileContext.cs" />
     <Compile Include="DTOs\CodeConfirmationRequest.cs" />
     <Compile Include="DTOs\CodeConfirmationRequestResponse.cs" />
+    <Compile Include="DTOs\ConfirmForgotPasswordRequest.cs" />
+    <Compile Include="DTOs\ConfirmForgotPasswordRequestResponse.cs" />
     <Compile Include="DTOs\ErrorResponse.cs" />
+    <Compile Include="DTOs\ForgorPasswordRequest.cs" />
+    <Compile Include="DTOs\ForgorPasswordRequestResponse.cs" />
     <Compile Include="DTOs\GuidInformation.cs" />
     <Compile Include="DTOs\PatientAuthorizationRequest.cs" />
     <Compile Include="DTOs\PatientAuthorizationRequestResponse.cs" />
@@ -141,9 +145,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202205092359146_CreaeUserProfileModel.cs" />
-    <Compile Include="Migrations\202205092359146_CreaeUserProfileModel.designer.cs">
-      <DependentUpon>202205092359146_CreaeUserProfileModel.cs</DependentUpon>
+    <Compile Include="Migrations\202205111351346_CreateUserProfileModel.cs" />
+    <Compile Include="Migrations\202205111351346_CreateUserProfileModel.designer.cs">
+      <DependentUpon>202205111351346_CreateUserProfileModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202205161248028_AddCreatedAndConfirmedAt.cs" />
+    <Compile Include="Migrations\202205161248028_AddCreatedAndConfirmedAt.designer.cs">
+      <DependentUpon>202205161248028_AddCreatedAndConfirmedAt.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\UserProfile.cs" />
@@ -167,8 +175,11 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202205092359146_CreaeUserProfileModel.resx">
-      <DependentUpon>202205092359146_CreaeUserProfileModel.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202205111351346_CreateUserProfileModel.resx">
+      <DependentUpon>202205111351346_CreateUserProfileModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202205161248028_AddCreatedAndConfirmedAt.resx">
+      <DependentUpon>202205161248028_AddCreatedAndConfirmedAt.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
