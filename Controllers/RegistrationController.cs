@@ -70,6 +70,20 @@ namespace ProxyApp.Controllers
                     if (responseModel.Success && responseModel.Processed)
                     {
                         var userProfile = await UserProfileService.FindByActionGuid(GUID);
+
+                        var findedUsers = UserProfileService.FindAllByPhoneAndMedOrgId(responseModel.Patient.Phone, responseModel.Clinic.ClinicId);
+                        foreach (var findedUser in findedUsers)
+                        {
+                            if (findedUser.FirstName == responseModel.Patient.Name && 
+                                findedUser.Surname == responseModel.Patient.Surname[0].ToString() && 
+                                findedUser.Patronymic == responseModel.Patient.Patronymic && 
+                                findedUser.Barcode == responseModel.Clinic.Barcode && 
+                                findedUser.ID != userProfile.ID)
+                            {
+                                await UserProfileService.Delete(findedUser);
+                            }
+                        }
+
                         userProfile.ConfirmedAt = DateTime.Now;
                         userProfile.Barcode = responseModel.Clinic.Barcode;
                         userProfile.MedOrgId = responseModel.Clinic.ClinicId;
