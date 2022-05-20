@@ -50,7 +50,7 @@ namespace ProxyApp.Controllers
         [HttpPost]
         [ResponseType(typeof(PatientAuthorizationResponse))]
         [Route("CheckAuthorization")]
-        public async Task<IHttpActionResult> CheckAuthorization()
+        public async Task<IHttpActionResult> CheckAuthorization(GuidInformation guid)
         {
             var requestString = GetBodyFromRequest();
 
@@ -65,9 +65,7 @@ namespace ProxyApp.Controllers
 
                 try
                 {
-                    var GUID = requestString.Contains("\"")
-                        ? (SerializerService.DeserializeObject(requestString) as GuidInformation).GUID
-                        : SerializerService.ConvertFormDataToDict(requestString).Get("GUID");
+                    var GUID = guid.GUID;
 
                     if (responseModel.Success && responseModel.Processed)
                     {
