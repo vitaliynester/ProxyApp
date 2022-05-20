@@ -23,6 +23,12 @@ namespace ProxyApp.Services
             await _db.SaveChangesAsync();
         }
 
+        public static async Task Delete(UserProfile userProfile)
+        {
+            _db.UserProfiles.Remove(userProfile);
+            await _db.SaveChangesAsync();
+        }
+
         public static async Task<UserProfile> FindByActionGuid(string actionGuid)
         {
             return await _db.UserProfiles.FirstOrDefaultAsync(up => up.GUID == actionGuid);
