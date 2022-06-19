@@ -45,5 +45,9 @@ namespace ProxyApp.Models
         [JsonProperty("confirmed_at")]
         [Column("user_profile_confirmed_at", TypeName = "datetime2")]
         public DateTime ConfirmedAt { get; set; }
+
+        [JsonProperty("birthday")]
+        [Column("user_profile_birthday", TypeName = "datetime2")]
+        public DateTime Birthdate { get; set; }
     }
 }
