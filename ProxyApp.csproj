@@ -140,6 +140,7 @@
     <Compile Include="DTOs\PhoneConfirmationRequestResponse.cs" />
     <Compile Include="DTOs\ResponseData.cs" />
     <Compile Include="DTOs\TokenRootErrorResponse.cs" />
+    <Compile Include="DTOs\TokenRootRequest.cs" />
     <Compile Include="DTOs\TokenRootResponse.cs" />
     <Compile Include="DTOs\UserProfileRequest.cs" />
     <Compile Include="Global.asax.cs">
@@ -152,6 +153,10 @@
     <Compile Include="Migrations\202205161248028_AddCreatedAndConfirmedAt.cs" />
     <Compile Include="Migrations\202205161248028_AddCreatedAndConfirmedAt.designer.cs">
       <DependentUpon>202205161248028_AddCreatedAndConfirmedAt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202205301341015_AddBirthdayField.cs" />
+    <Compile Include="Migrations\202205301341015_AddBirthdayField.designer.cs">
+      <DependentUpon>202205301341015_AddBirthdayField.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\UserProfile.cs" />
@@ -180,6 +185,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202205161248028_AddCreatedAndConfirmedAt.resx">
       <DependentUpon>202205161248028_AddCreatedAndConfirmedAt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202205301341015_AddBirthdayField.resx">
+      <DependentUpon>202205301341015_AddBirthdayField.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
