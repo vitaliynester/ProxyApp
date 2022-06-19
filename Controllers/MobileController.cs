@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
 using ProxyApp.DTOs;
@@ -14,14 +15,11 @@ namespace ProxyApp.Controllers
         [HttpPost]
         [ResponseType(typeof(PhoneConfirmationRequestResponse))]
         [Route("PhoneConfirmation")]
-        public async Task<IHttpActionResult> PhoneConfirmation()
+        public async Task<IHttpActionResult> PhoneConfirmation(PhoneConfirmationRequest phoneConfirmationRequest)
         {
-            var requestString = GetBodyFromRequest();
-
             var url = _baseUrl + "/api/Mobile/PhoneConfirmation";
 
-            var response = await HttpService.Post(url, requestString,
-                requestString.Contains("\"") ? ContentType.JSON : ContentType.FormData);
+            var response = await HttpService.Post(url, SerializerService.SerializeObject(phoneConfirmationRequest), ContentType.JSON);
 
             try
             {
@@ -38,14 +36,11 @@ namespace ProxyApp.Controllers
         [HttpPost]
         [ResponseType(typeof(CodeConfirmationRequestResponse))]
         [Route("CodeConfirmation")]
-        public async Task<IHttpActionResult> CodeConfirmation()
+        public async Task<IHttpActionResult> CodeConfirmation(CodeConfirmationRequest codeConfirmationRequest)
         {
-            var requestString = GetBodyFromRequest();
-
             var url = _baseUrl + "/api/Mobile/CodeConfirmation";
 
-            var response = await HttpService.Post(url, requestString,
-                requestString.Contains("\"") ? ContentType.JSON : ContentType.FormData);
+            var response = await HttpService.Post(url, SerializerService.SerializeObject(codeConfirmationRequest), ContentType.JSON);
 
             try
             {
@@ -60,14 +55,11 @@ namespace ProxyApp.Controllers
         [HttpPost]
         [ResponseType(typeof(ForgorPasswordRequestResponse))]
         [Route("ForgotPassword")]
-        public async Task<IHttpActionResult> ForgotPassword()
+        public async Task<IHttpActionResult> ForgotPassword(ForgorPasswordRequest forgorPasswordRequest)
         {
-            var requestString = GetBodyFromRequest();
-
             var url = _baseUrl + "/api/Mobile/ForgotPassword";
 
-            var response = await HttpService.Post(url, requestString,
-                requestString.Contains("\"") ? ContentType.JSON : ContentType.FormData);
+            var response = await HttpService.Post(url, SerializerService.SerializeObject(forgorPasswordRequest), ContentType.JSON);
 
             try
             {
@@ -82,14 +74,11 @@ namespace ProxyApp.Controllers
         [HttpPost]
         [ResponseType(typeof(ConfirmForgotPasswordRequestResponse))]
         [Route("ConfirmForgotPassword")]
-        public async Task<IHttpActionResult> ConfirmForgotPassword()
+        public async Task<IHttpActionResult> ConfirmForgotPassword(ConfirmForgotPasswordRequest confirmForgotPasswordRequest)
         {
-            var requestString = GetBodyFromRequest();
-
             var url = _baseUrl + "/api/Mobile/ConfirmForgotPassword";
 
-            var response = await HttpService.Post(url, requestString,
-                requestString.Contains("\"") ? ContentType.JSON : ContentType.FormData);
+            var response = await HttpService.Post(url, SerializerService.SerializeObject(confirmForgotPasswordRequest), ContentType.JSON);
 
             try
             {
