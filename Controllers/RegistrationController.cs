@@ -14,14 +14,11 @@ namespace ProxyApp.Controllers
         [HttpPost]
         [ResponseType(typeof(PatientAuthorizationRequestResponse))]
         [Route("Authorization")]
-        public async Task<IHttpActionResult> Authorization()
+        public async Task<IHttpActionResult> Authorization(PatientAuthorizationRequest patientAuthorizationRequest)
         {
-            var requestString = GetBodyFromRequest();
-
             var url = _baseUrl + "/api/Registration/Authorization";
 
-            var response = await HttpService.Post(url, requestString,
-                requestString.Contains("\"") ? ContentType.JSON : ContentType.FormData);
+            var response = await HttpService.Post(url, SerializerService.SerializeObject(patientAuthorizationRequest), ContentType.JSON);
 
             try
             {
@@ -52,12 +49,9 @@ namespace ProxyApp.Controllers
         [Route("CheckAuthorization")]
         public async Task<IHttpActionResult> CheckAuthorization(GuidInformation guid)
         {
-            var requestString = GetBodyFromRequest();
-
             var url = _baseUrl + "/api/Registration/CheckAuthorization";
 
-            var response = await HttpService.Post(url, requestString,
-                requestString.Contains("\"") ? ContentType.JSON : ContentType.FormData);
+            var response = await HttpService.Post(url, SerializerService.SerializeObject(guid), ContentType.JSON);
 
             try
             {
@@ -91,6 +85,7 @@ namespace ProxyApp.Controllers
                         userProfile.Surname = responseModel.Patient.Surname[0].ToString();
                         userProfile.FirstName = responseModel.Patient.Name;
                         userProfile.Patronymic = responseModel.Patient.Patronymic;
+                        userProfile.Birthdate = DateTime.Parse(responseModel.Patient.Birthdate);
                         await UserProfileService.Update(userProfile);
                     }
                 }
@@ -110,14 +105,11 @@ namespace ProxyApp.Controllers
 
         [HttpPost]
         [Route("CurrentRegistration")]
-        public async Task<IHttpActionResult> CurrentRegistration()
+        public async Task<IHttpActionResult> CurrentRegistration(GuidInformation guid)
         {
-            var requestString = GetBodyFromRequest();
-
             var url = _baseUrl + "/api/Registration/CurrentRegistration";
 
-            var response = await HttpService.Post(url, requestString,
-                requestString.Contains("\"") ? ContentType.JSON : ContentType.FormData);
+            var response = await HttpService.Post(url, SerializerService.SerializeObject(guid), ContentType.JSON);
 
             return new JsonHttpStatusResult<object>(null, response.StatusCode, this);
         }
