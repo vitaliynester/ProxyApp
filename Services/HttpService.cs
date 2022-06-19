@@ -31,5 +31,21 @@ namespace ProxyApp.Services
                 Body = response
             };
         }
+
+        public static async Task<ResponseData> Post(string url, string payload, string contentType)
+        {
+            var response = string.Empty;
+
+            var httpContent = new StringContent(payload, Encoding.UTF8, contentType);
+            var result = await _client.PostAsync(url, httpContent);
+
+            if (result != null) response = await result.Content.ReadAsStringAsync();
+
+            return new ResponseData
+            {
+                StatusCode = (int)result.StatusCode,
+                Body = response
+            };
+        }
     }
 }
